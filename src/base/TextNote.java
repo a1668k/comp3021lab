@@ -2,7 +2,7 @@ package base;
 
 public class TextNote extends Note {
 
-	protected String content;
+	private String content;
 	
 	public TextNote(String title) {
 		super(title);
