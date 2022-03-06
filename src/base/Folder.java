@@ -1,11 +1,18 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class Folder {
+public class Folder implements Comparable<Folder>{
 
 	private ArrayList<Note> notes;
 	private String name;
+	
+	@Override
+	public int compareTo(Folder o) {
+		return this.name.compareTo(o.name);
+	}
 	
 	public Folder(String name) {
 		this.name = name;
@@ -22,6 +29,48 @@ public class Folder {
 	
 	public ArrayList<Note> getNotes() {
 		return notes;
+	}
+	
+	public void sortNotes() {
+		Collections.sort(notes);
+	}
+	
+	public List<Note> searchNotes(String keywords) {
+		String[] keyword = keywords.split(" ");
+		
+		List<Note> result = notes;
+		
+		for (int i = 0; i < keyword.length; i++) {
+			List<Note> current = new ArrayList<>();
+			if (i + 1 < keyword.length && (keyword[i+1].equals("OR") || keyword[i+1].equals("or"))) { // OR operation
+				for (Note n : result) {
+					if (n instanceof ImageNote) {
+						// for ImageNote
+						if (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase()) || n.getTitle().toLowerCase().contains(keyword[i+2].toLowerCase()))
+							current.add(n);
+					} else {
+						// for TextNote
+						if (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase()) || n.getTitle().toLowerCase().contains(keyword[i+2].toLowerCase()) ||
+							   n.getContent().toLowerCase().contains(keyword[i].toLowerCase()) || n.getContent().toLowerCase().contains(keyword[i+2].toLowerCase()))
+							current.add(n);
+					}
+				}
+				
+				i += 2;
+			} else { // And operation
+				for (Note n : result) {
+					if (n instanceof ImageNote) {
+						if (! (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase())) )
+							current.add(n);
+					} else {
+						if (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase()) || n.getContent().toLowerCase().contains(keyword[i].toLowerCase()))
+							current.add(n);
+					}
+				}
+			}
+			result = current;
+		}
+		return result;
 	}
 
 	@Override
