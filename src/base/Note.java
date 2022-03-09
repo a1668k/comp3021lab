@@ -11,10 +11,6 @@ public class Note implements Comparable<Note>{
 		return o.date.compareTo(this.date);
 	}
 	
-	public String getContent() {
- 		return "";
- 	}
-	
 	public Note(String title) {
 		this.title = title;
 		date = new Date(System.currentTimeMillis());

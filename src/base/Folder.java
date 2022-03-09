@@ -51,7 +51,7 @@ public class Folder implements Comparable<Folder>{
 					} else {
 						// for TextNote
 						if (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase()) || n.getTitle().toLowerCase().contains(keyword[i+2].toLowerCase()) ||
-							   n.getContent().toLowerCase().contains(keyword[i].toLowerCase()) || n.getContent().toLowerCase().contains(keyword[i+2].toLowerCase()))
+							   ((TextNote)n).content.toLowerCase().contains(keyword[i].toLowerCase()) || ((TextNote)n).content.toLowerCase().contains(keyword[i+2].toLowerCase()))
 							current.add(n);
 					}
 				}
@@ -63,7 +63,7 @@ public class Folder implements Comparable<Folder>{
 						if (! (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase())) )
 							current.add(n);
 					} else {
-						if (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase()) || n.getContent().toLowerCase().contains(keyword[i].toLowerCase()))
+						if (n.getTitle().toLowerCase().contains(keyword[i].toLowerCase()) || ((TextNote)n).content.toLowerCase().contains(keyword[i].toLowerCase()))
 							current.add(n);
 					}
 				}
