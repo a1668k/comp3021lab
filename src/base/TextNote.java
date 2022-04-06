@@ -55,4 +55,8 @@ public class TextNote extends Note implements Serializable {
 			return;
 		}
 	}
+	
+	public String getTextNoteContent() {
+		return content;
+	}
 }
