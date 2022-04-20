@@ -111,4 +111,9 @@ public class NoteBook implements Serializable {
  		return folders;
  	}
  	
+ 	public void setFolders(ArrayList<Folder> input) {
+ 		folders.clear();
+ 		folders.addAll(input);
+ 	}
+ 	
 }
